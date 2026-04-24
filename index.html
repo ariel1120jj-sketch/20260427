@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深空導航系統：期中技術整合完整版</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute">
+    <defs>
+        <filter id="planet-glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        <radialGradient id="grad-specular" cx="30%" cy="30%" r="50%"><stop offset="0%" stop-color="rgba(255,255,255,0.4)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></radialGradient>
+        <radialGradient id="grad-Feb23"><stop offset="0%" stop-color="#ddd"/><stop offset="100%" stop-color="#333"/></radialGradient>
+        <radialGradient id="grad-Mar02"><stop offset="0%" stop-color="#fff2cc"/><stop offset="100%" stop-color="#bf9000"/></radialGradient>
+        <radialGradient id="grad-Mar09"><stop offset="0%" stop-color="#fff"/><stop offset="60%" stop-color="#3c78d8"/><stop offset="100%" stop-color="#00f"/></radialGradient>
+        <radialGradient id="grad-Mar16"><stop offset="0%" stop-color="#f4cccc"/><stop offset="100%" stop-color="#990000"/></radialGradient>
+        <radialGradient id="grad-Mar23"><stop offset="0%" stop-color="#b69b4c"/><stop offset="100%" stop-color="#444"/></radialGradient>
+        <radialGradient id="grad-Mar30"><stop offset="0%" stop-color="#fce5cd"/><stop offset="100%" stop-color="#c2b280"/></radialGradient>
+        <radialGradient id="grad-Mar30-2"><stop offset="0%" stop-color="#f0f0f0"/><stop offset="100%" stop-color="#444"/></radialGradient>
+        <radialGradient id="grad-Apr13"><stop offset="0%" stop-color="#d1f7ff"/><stop offset="100%" stop-color="#6fa8dc"/></radialGradient>
+        <radialGradient id="grad-Apr20"><stop offset="0%" stop-color="#cfe2f3"/><stop offset="100%" stop-color="#000080"/></radialGradient>
+        <linearGradient id="grad-Saturn-Ring" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="rgba(180,160,130,0)"/><stop offset="50%" stop-color="rgba(210,190,160,0.8)"/><stop offset="100%" stop-color="rgba(180,160,130,0)"/></linearGradient>
+    </defs>
+</svg>
+
+<div id="warp-container"></div>
+<div class="nebula-bg"></div>
+
+<div class="viewport-container">
+    <div id="screen-a" class="ui-layer">
+        <h1 class="title">深空導航系統</h1>
+        <button class="btn" id="start-btn">啟動核心</button>
+    </div>
+
+    <div id="screen-b" class="ui-layer hidden">
+        <div class="scanning-box"><p class="scanning-text">校準星圖座標中...</p></div>
+    </div>
+
+    <div id="screen-c" class="ui-layer hidden">
+        <div class="planet-selector-align">
+            <div class="planet-row-center" id="planet-selector"></div>
+        </div>
+    </div>
+
+    <div id="screen-d" class="ui-layer hidden">
+        <div id="focused-planet-area"></div>
+    </div>
+
+    <div id="main-display" class="glass-panel ui-layer hidden">
+        <div class="panel-header">
+            <span id="viewing-status">SYSTEM ACTIVE</span>
+            <button class="btn-sm" onclick="disconnect()">BACK TO CHART</button>
+        </div>
+        <iframe id="main-frame" src="about:blank"></iframe>
+    </div>
+
+    <div id="info-panel" class="info-sidebar hidden-panel">
+        <button class="close-info" onclick="toggleInfo()">×</button>
+        <div class="info-content">
+            <h3>技術心得與設計理念</h3>
+            <hr>
+            <p><strong>主題構思：</strong>本作品將程式技術點轉化為星際物件。隨時間增長的學習歷程由陣列動態生成，象徵知識的廣度。</p>
+            <p><strong>技術細節：</strong><br>
+            - <strong>Class & For:</strong> 透過物件導向產生星塵。右下角資訊星團亦由獨立 Class 管理。<br>
+            - <strong>Vertex:</strong> 用於繪製聚焦時的科技感準心，展現 <code>beginShape()</code> 的美感。<br>
+            - <strong>Iframe:</strong> 完美整合所有週次作品，實現單一頁面全方位展示。</p>
+        </div>
+    </div>
+</div>
+
+<script src="sketch.js"></script>
+</body>
+</html>
